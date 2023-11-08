@@ -12,6 +12,7 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 	private lockCollectionName: string
 	private primaryFieldName: string
 	private lockFieldName: string
+
 	protected constructor(options: OptimisticLockingPluginOptions) {
 		const { database, lockCollectionName, primaryFieldName, lockFieldName } =
 			options
@@ -37,6 +38,7 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 		values: Record<string, any>
 	): Promise<void | DataStorePluginHookResponse> {
 		const lock = generateId()
+
 		await this.db.createOne(this.lockCollectionName, {
 			[this.primaryFieldName]: values[this.primaryFieldName],
 			[this.lockFieldName]: lock,
@@ -49,21 +51,32 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 		}
 	}
 
-	public async willUpdateOne(query: Record<string, any>) {
-		debugger
-		if (!query[this.lockFieldName]) {
-			throw new SpruceError({
-				code: 'MISSING_LOCK_FIELD',
-				lockFieldName: this.lockFieldName,
-			})
+	public async willDeleteOne(query: Record<string, any>) {
+		this.assertLockFieldInQuery(query)
+		const q = await this.assertLockAndRemoveFromQuery(query)
+		return {
+			query: q,
 		}
+	}
 
-		debugger
+	public async willUpdateOne(query: Record<string, any>) {
+		this.assertLockFieldInQuery(query)
 
+		const q = await this.assertLockAndRemoveFromQuery(query)
+
+		return { query: q }
+	}
+
+	private async assertLockAndRemoveFromQuery(query: Record<string, any>) {
 		const q = { ...query }
 		const lock = q[this.lockFieldName]
 		delete q[this.lockFieldName]
 
+		await this.assertValidLock(lock)
+		return q
+	}
+
+	private async assertValidLock(lock: any) {
 		const match = await this.db.count(this.lockCollectionName, {
 			[this.lockFieldName]: lock,
 		})
@@ -75,8 +88,15 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 				lockValue: lock,
 			})
 		}
+	}
 
-		return { query: q }
+	private assertLockFieldInQuery(query: Record<string, any>) {
+		if (!query[this.lockFieldName]) {
+			throw new SpruceError({
+				code: 'MISSING_LOCK_FIELD',
+				lockFieldName: this.lockFieldName,
+			})
+		}
 	}
 
 	public getName(): string {

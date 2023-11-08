@@ -136,16 +136,13 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		const created = await this.createOne()
 
 		const lockValue = generateId()
-		const query = {
-			[this.primaryFieldName]: created.id,
-			[this.lockFieldName]: lockValue,
-		}
-		const err = await assert.doesThrowAsync(() => this.updateOne(query))
 
-		errorAssert.assertError(err, 'EXPIRED_LOCK', {
-			lockFieldName: this.lockFieldName,
-			lockValue,
-		})
+		await this.assertThrowsLockExpired(() => {
+			return this.updateOne({
+				[this.primaryFieldName]: created.id,
+				[this.lockFieldName]: lockValue,
+			})
+		}, lockValue)
 	}
 
 	@test()
@@ -154,6 +151,45 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 		await this.assertThrowsLockFieldMissing(() => {
 			return this.spy1.deleteOne({})
+		})
+	}
+
+	@test()
+	protected static async passingTheWrongLockOnDeleteThrows() {
+		const { created } = await this.createOnAndGetLock()
+
+		const lockValue = generateId()
+
+		await this.assertThrowsLockExpired(() => {
+			return this.spy1.deleteOne({
+				[this.primaryFieldName]: created.id,
+				[this.lockFieldName]: lockValue,
+			})
+		}, lockValue)
+	}
+
+	@test()
+	protected static async canDeleteIfLockMatches() {
+		const { created, lock } = await this.createOnAndGetLock()
+
+		await this.spy1.deleteOne({
+			[this.primaryFieldName]: created.id,
+			[this.lockFieldName]: lock,
+		})
+
+		const count = await this.spy1.count({})
+		assert.isEqual(count, 0)
+	}
+
+	private static async assertThrowsLockExpired(
+		cb: () => void,
+		lockValue: string
+	) {
+		const err = await assert.doesThrowAsync(cb)
+
+		errorAssert.assertError(err, 'EXPIRED_LOCK', {
+			lockFieldName: this.lockFieldName,
+			lockValue,
 		})
 	}
 
