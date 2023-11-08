@@ -61,10 +61,22 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 
 	public async willUpdateOne(query: Record<string, any>) {
 		this.assertLockFieldInQuery(query)
-
 		const q = await this.assertLockAndRemoveFromQuery(query)
-
 		return { query: q }
+	}
+
+	public async didFindOne(
+		query: Record<string, any>,
+		record: Record<string, any>
+	) {
+		const match = await this.db.findOne(this.lockCollectionName, {
+			[this.primaryFieldName]: record[this.primaryFieldName],
+		})
+		return {
+			valuesToMixinBeforeReturning: {
+				[this.lockFieldName]: match?.[this.lockFieldName],
+			},
+		}
 	}
 
 	private async assertLockAndRemoveFromQuery(query: Record<string, any>) {

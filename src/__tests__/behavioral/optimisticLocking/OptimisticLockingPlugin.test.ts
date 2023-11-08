@@ -105,7 +105,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 	@test()
 	protected static async canUpdateIfLockMatches() {
-		const { created, lock } = await this.createOnAndGetLock()
+		const { created, lock } = await this.createOneAndGetLock()
 
 		await this.updateOne({
 			id: created.id,
@@ -115,7 +115,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 	@test()
 	protected static async updateDoesNotMutateQuery() {
-		const { created, lock } = await this.createOnAndGetLock()
+		const { created, lock } = await this.createOneAndGetLock()
 
 		const query = {
 			id: created.id,
@@ -156,7 +156,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 	@test()
 	protected static async passingTheWrongLockOnDeleteThrows() {
-		const { created } = await this.createOnAndGetLock()
+		const { created } = await this.createOneAndGetLock()
 
 		const lockValue = generateId()
 
@@ -170,7 +170,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 	@test()
 	protected static async canDeleteIfLockMatches() {
-		const { created, lock } = await this.createOnAndGetLock()
+		const { created, lock } = await this.createOneAndGetLock()
 
 		await this.spy1.deleteOne({
 			[this.primaryFieldName]: created.id,
@@ -179,6 +179,42 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 
 		const count = await this.spy1.count({})
 		assert.isEqual(count, 0)
+	}
+
+	@test()
+	protected static async findOneReturnsLock() {
+		const { created, lock } = await this.createOneAndGetLock()
+
+		const found = await this.findOne(created.id)
+
+		//@ts-ignore
+		assert.isEqual(found?.[this.lockFieldName], lock)
+	}
+
+	@test()
+	protected static async findOneCanTellLocksApart() {
+		const { created } = await this.createOneAndGetLock()
+
+		const lockValue = await this.createRandomLock()
+		const found = await this.findOne(created.id!)
+
+		//@ts-ignore
+		assert.isNotEqual(found?.[this.lockFieldName], lockValue)
+	}
+
+	private static async createRandomLock() {
+		const lockValue = generateId()
+		await this.db.createOne(this.lockCollectionName, {
+			[this.primaryFieldName]: generateId(),
+			[this.lockFieldName]: lockValue,
+		})
+		return lockValue
+	}
+
+	private static async findOne(id: string | null | undefined) {
+		return await this.spy1.findOne({
+			[this.primaryFieldName]: id,
+		})
 	}
 
 	private static async assertThrowsLockExpired(
@@ -193,7 +229,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		})
 	}
 
-	private static async createOnAndGetLock() {
+	private static async createOneAndGetLock() {
 		const created = await this.createOne()
 		//@ts-ignore
 		const lock = created[this.lockFieldName]
