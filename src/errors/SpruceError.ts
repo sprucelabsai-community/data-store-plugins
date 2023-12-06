@@ -14,6 +14,9 @@ export default class SpruceError extends BaseSpruceError<ErrorOptions> {
 			case 'EXPIRED_LOCK':
 				message = `The lock on this item has expired. This probably means someone updated it before you could.`
 				break
+			case 'MISSING_ENTITY_ID_FIELD_NAME':
+				message = `Your store is missing the entity id field named '${options.entityIdFieldName}'. You need to add it to the full schema of our store for best results`
+				break
 
 			default:
 				message = super.friendlyMessage()

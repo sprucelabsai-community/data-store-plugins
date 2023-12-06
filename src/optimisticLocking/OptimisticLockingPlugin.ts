@@ -1,6 +1,6 @@
 import {
 	DataStorePlugin,
-	DataStorePluginHookResponse,
+	DataStorePluginDidCreateOneResponse,
 	Database,
 } from '@sprucelabs/data-stores'
 import { assertOptions } from '@sprucelabs/schema'
@@ -12,6 +12,9 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 	private lockCollectionName: string
 	private primaryFieldName: string
 	private lockFieldName: string
+	public static Class?: new (
+		options: OptimisticLockingPluginOptions
+	) => OptimisticLockingPlugin
 
 	protected constructor(options: OptimisticLockingPluginOptions) {
 		const { database, lockCollectionName, primaryFieldName, lockFieldName } =
@@ -31,12 +34,12 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 			'lockFieldName',
 		])
 
-		return new this(options)
+		return new (this.Class ?? this)(options)
 	}
 
-	public async willCreateOne(
+	public async didCreateOne(
 		values: Record<string, any>
-	): Promise<void | DataStorePluginHookResponse> {
+	): Promise<void | DataStorePluginDidCreateOneResponse> {
 		const lock = generateId()
 
 		await this.db.createOne(this.lockCollectionName, {
@@ -66,7 +69,7 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 	}
 
 	public async didFindOne(
-		query: Record<string, any>,
+		_query: Record<string, any>,
 		record: Record<string, any>
 	) {
 		const match = await this.db.findOne(this.lockCollectionName, {
@@ -115,7 +118,7 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
 		return 'optimisticLocking'
 	}
 }
-interface OptimisticLockingPluginOptions {
+export interface OptimisticLockingPluginOptions {
 	database: Database
 	lockCollectionName: string
 	primaryFieldName: string

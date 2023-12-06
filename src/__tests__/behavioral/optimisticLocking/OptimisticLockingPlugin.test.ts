@@ -1,16 +1,15 @@
-import { Database } from '@sprucelabs/data-stores'
-import { AbstractSpruceFixtureTest } from '@sprucelabs/spruce-test-fixtures'
 import { test, assert, errorAssert, generateId } from '@sprucelabs/test-utils'
-import OptimisticLockingPlugin from '../../../optimisticLocking/OptimisticLockingPlugin'
-import SpyStore1 from '../../support/SpyStore1'
+import OptimisticLockingPlugin, {
+	OptimisticLockingPluginOptions,
+} from '../../../optimisticLocking/OptimisticLockingPlugin'
+import AbstractPluginTest from '../../support/AbstractPluginTest'
 
-export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTest {
-	private static spy1: SpyStore1
-	private static db: Database
+export default class OptimisticLockingPluginTest extends AbstractPluginTest {
 	private static lockCollectionName: string
 	private static plugin: OptimisticLockingPlugin
 	private static primaryFieldName: string
 	private static lockFieldName: string
+
 	protected static async beforeEach() {
 		await super.beforeEach()
 
@@ -18,14 +17,9 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		this.lockFieldName = generateId()
 		this.primaryFieldName = 'id'
 
-		const stores = await this.stores.getStoreFactory()
-		stores.setStoreClass('spy1', SpyStore1)
-
-		this.db = await this.database.connectToDatabase()
-		this.spy1 = await this.stores.getStore('spy1')
-
 		this.plugin = this.Plugin()
-		this.spy1.addPlugin(this.plugin)
+		const plugin = this.plugin
+		this.addPlugin(plugin)
 	}
 
 	@test()
@@ -65,11 +59,11 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		primaryFieldName: string
 	) {
 		this.primaryFieldName = primaryFieldName
-		this.spy1.setPrimaryKeyField(this.primaryFieldName)
+		this.spy.setPrimaryKeyField(this.primaryFieldName)
 
-		this.spy1.clearPlugins()
+		this.spy.clearPlugins()
 		this.plugin = this.Plugin()
-		this.spy1.addPlugin(this.plugin)
+		this.spy.addPlugin(this.plugin)
 
 		const { lockRecord, record } = await this.createOneAndGetFirstLock()
 
@@ -150,7 +144,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		await this.createOne()
 
 		await this.assertThrowsLockFieldMissing(() => {
-			return this.spy1.deleteOne({})
+			return this.spy.deleteOne({})
 		})
 	}
 
@@ -161,7 +155,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		const lockValue = generateId()
 
 		await this.assertThrowsLockExpired(() => {
-			return this.spy1.deleteOne({
+			return this.spy.deleteOne({
 				[this.primaryFieldName]: created.id,
 				[this.lockFieldName]: lockValue,
 			})
@@ -172,12 +166,12 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 	protected static async canDeleteIfLockMatches() {
 		const { created, lock } = await this.createOneAndGetLock()
 
-		await this.spy1.deleteOne({
+		await this.spy.deleteOne({
 			[this.primaryFieldName]: created.id,
 			[this.lockFieldName]: lock,
 		})
 
-		const count = await this.spy1.count({})
+		const count = await this.spy.count({})
 		assert.isEqual(count, 0)
 	}
 
@@ -202,6 +196,13 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 		assert.isNotEqual(found?.[this.lockFieldName], lockValue)
 	}
 
+	@test()
+	protected static async canOverrideClass() {
+		OptimisticLockingPlugin.Class = SpyPlugin
+		const plugin = this.Plugin()
+		assert.isInstanceOf(plugin, SpyPlugin)
+	}
+
 	private static async createRandomLock() {
 		const lockValue = generateId()
 		await this.db.createOne(this.lockCollectionName, {
@@ -212,7 +213,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 	}
 
 	private static async findOne(id: string | null | undefined) {
-		return await this.spy1.findOne({
+		return await this.spy.findOne({
 			[this.primaryFieldName]: id,
 		})
 	}
@@ -237,7 +238,7 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 	}
 
 	private static updateOne(query: Record<string, any>) {
-		return this.spy1.updateOne(query, this.generateRandomValues())
+		return this.spy.updateOne(query, this.generateSpyRandomValues())
 	}
 
 	private static async createOneAndGetFirstLock() {
@@ -268,15 +269,10 @@ export default class OptimisticLockingPluginTest extends AbstractSpruceFixtureTe
 			lockFieldName: this.lockFieldName,
 		})
 	}
+}
 
-	private static async createOne() {
-		return await this.spy1.createOne(this.generateRandomValues())
-	}
-
-	private static generateRandomValues() {
-		return {
-			firstName: generateId(),
-			lastName: generateId(),
-		}
+class SpyPlugin extends OptimisticLockingPlugin {
+	public constructor(options: OptimisticLockingPluginOptions) {
+		super(options)
 	}
 }

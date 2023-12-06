@@ -40,6 +40,35 @@ export declare namespace SpruceErrors.DataStorePlugins {
 export declare namespace SpruceErrors.DataStorePlugins {
 
 	
+	export interface MissingEntityIdFieldName {
+		
+			
+			'entityIdFieldName': string
+	}
+
+	export interface MissingEntityIdFieldNameSchema extends SpruceSchema.Schema {
+		id: 'missingEntityIdFieldName',
+		namespace: 'DataStorePlugins',
+		name: 'Missing entity id field name',
+		    fields: {
+		            /** . */
+		            'entityIdFieldName': {
+		                type: 'text',
+		                isRequired: true,
+		                options: undefined
+		            },
+		    }
+	}
+
+	export type MissingEntityIdFieldNameEntity = SchemaEntity<SpruceErrors.DataStorePlugins.MissingEntityIdFieldNameSchema>
+
+}
+
+
+
+export declare namespace SpruceErrors.DataStorePlugins {
+
+	
 	export interface ExpiredLock {
 		
 			

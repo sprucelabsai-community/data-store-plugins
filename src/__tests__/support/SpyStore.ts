@@ -7,7 +7,7 @@ import {
 } from '@sprucelabs/data-stores'
 import { buildSchema, SchemaValues } from '@sprucelabs/schema'
 
-export default class SpyStore1 extends AbstractStore<SpyRecordSchema> {
+export default class SpyStore extends AbstractStore<SpyRecordSchema> {
 	public db!: Database
 	public storeFactory!: StoreFactory
 	public name = 'test'
@@ -33,14 +33,13 @@ export default class SpyStore1 extends AbstractStore<SpyRecordSchema> {
 
 	public async initialize() {
 		this.wasInitializedInvoked = true
-		SpyStore1.initializeCount++
+		SpyStore.initializeCount++
 	}
 
-	//@ts-ignore
-	public async find(...args: any[]): Promise<SpyRecord[]> {
+	public async find(...args: any[]) {
 		this.findArgs.push(args)
 		//@ts-ignore
-		return super.find(...args)
+		return super.find(...args) as any
 	}
 
 	public setCollectionName(name: string): void {
@@ -62,11 +61,11 @@ export default class SpyStore1 extends AbstractStore<SpyRecordSchema> {
 
 declare module '@sprucelabs/data-stores/build/types/stores.types' {
 	interface StoreMap {
-		spy1: SpyStore1
+		spy: SpyStore
 	}
 
 	interface StoreOptionsMap {
-		spy1: { testOption: boolean }
+		spy: { testOption: boolean }
 	}
 }
 
@@ -77,6 +76,9 @@ const spySchema = buildSchema({
 			type: 'id',
 		},
 		alternativeId: {
+			type: 'id',
+		},
+		alternativeId2: {
 			type: 'id',
 		},
 		firstName: {
