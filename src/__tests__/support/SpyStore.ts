@@ -55,7 +55,7 @@ export default class SpyStore extends AbstractStore<SpyRecordSchema> {
 	}
 
 	public setPrimaryKeyField(name: string) {
-		this.primaryFieldNames = [name]
+		this.primaryFieldNames = [name] as any
 	}
 }
 
