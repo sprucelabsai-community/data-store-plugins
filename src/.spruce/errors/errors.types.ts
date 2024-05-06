@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable no-redeclare */
-
 import { default as SchemaEntity } from '@sprucelabs/schema'
 import * as SpruceSchema from '@sprucelabs/schema'
+
+
 
 
 
@@ -36,7 +35,6 @@ export declare namespace SpruceErrors.DataStorePlugins {
 }
 
 
-
 export declare namespace SpruceErrors.DataStorePlugins {
 
 	
@@ -63,7 +61,6 @@ export declare namespace SpruceErrors.DataStorePlugins {
 	export type MissingEntityIdFieldNameEntity = SchemaEntity<SpruceErrors.DataStorePlugins.MissingEntityIdFieldNameSchema>
 
 }
-
 
 
 export declare namespace SpruceErrors.DataStorePlugins {
