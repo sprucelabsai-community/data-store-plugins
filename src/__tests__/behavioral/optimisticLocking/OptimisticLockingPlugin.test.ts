@@ -84,9 +84,9 @@ export default class OptimisticLockingPluginTest extends AbstractPluginTest {
     protected static async lockFieldComesBackWithCreatedRecord() {
         const { record, lockRecord } = await this.createOneAndGetFirstLock()
 
-        //@ts-ignore
         assert.isEqual(
             lockRecord[this.lockFieldName],
+            //@ts-ignore
             record[this.lockFieldName]
         )
     }

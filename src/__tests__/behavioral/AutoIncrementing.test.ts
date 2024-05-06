@@ -1,15 +1,10 @@
 import {
     DataStorePlugin,
-    DataStorePluginDidCreateOneResponse,
-    DataStorePluginDidFindOneResponse,
-    DataStorePluginPrepareResponse,
     DataStorePluginWillCreateOneResponse,
-    DataStorePluginWillDeleteOneResponse,
-    DataStorePluginWillUpdateOneResponse,
     Database,
 } from '@sprucelabs/data-stores'
 import { assertOptions } from '@sprucelabs/schema'
-import { test, assert, errorAssert, generateId } from '@sprucelabs/test-utils'
+import { test, assert, errorAssert } from '@sprucelabs/test-utils'
 import AbstractPluginTest from '../support/AbstractPluginTest'
 
 export default class AutoIncrementingTest extends AbstractPluginTest {
@@ -28,6 +23,7 @@ export default class AutoIncrementingTest extends AbstractPluginTest {
 
     @test()
     protected static async throwsWithMissing() {
+        //@ts-ignore
         const error = assert.doesThrow(() => AutoIncrementingPlugin.Plugin({}))
         errorAssert.assertError(error, 'MISSING_PARAMETERS', {
             parameters: ['database', 'fieldName'],
@@ -42,8 +38,7 @@ export default class AutoIncrementingTest extends AbstractPluginTest {
     @test()
     protected static async createdRecordHasFieldNameEqualToOne() {
         const record = await this.createOne()
-        debugger
-        assert.isEqual(record.id, 1)
+        assert.isEqual(record.id, '1')
     }
 }
 
@@ -53,7 +48,7 @@ class AutoIncrementingPlugin implements DataStorePlugin {
     }
 
     public async willCreateOne(
-        record: Record<string, any>
+        _record: Record<string, any>
     ): Promise<DataStorePluginWillCreateOneResponse> {
         debugger
         return {

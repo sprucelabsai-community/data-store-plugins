@@ -16,22 +16,13 @@ export default class HistoryPluginTest extends AbstractPluginTest {
 
     protected static async beforeEach() {
         await super.beforeEach()
+
         this.entityCollectionName = generateId()
         this.idFieldName = 'id'
         this.entityIdFieldName = 'alternativeId'
-
         this.plugin = this.Plugin()
 
         this.addPlugin(this.plugin)
-    }
-
-    private static Plugin(): HistoryPlugin {
-        return HistoryPlugin.Plugin({
-            store: this.spy,
-            entityCollectionName: this.entityCollectionName,
-            idFieldName: this.idFieldName,
-            entityIdFieldName: this.entityIdFieldName,
-        })
     }
 
     @test()
@@ -110,6 +101,16 @@ export default class HistoryPluginTest extends AbstractPluginTest {
         const count = await this.db.count(this.spy.getCollectionName(), {})
         assert.isEqual(count, 2)
     }
+
+    private static Plugin(): HistoryPlugin {
+        return HistoryPlugin.Plugin({
+            store: this.spy,
+            entityCollectionName: this.entityCollectionName,
+            idFieldName: this.idFieldName,
+            entityIdFieldName: this.entityIdFieldName,
+        })
+    }
+
     private static async createOneAndUpdateWithRandomValues() {
         const created = await this.createOne()
         await this.spy.updateOne(
