@@ -99,9 +99,13 @@ export default class HistoryPluginTest extends AbstractPluginTest {
 
     @test()
     protected static async updatingARecordDoesNotCreateNewEntityRecord() {
-        await this.createOneAndUpdateWithRandomValues()
-        const count = await this.db.count(this.entityCollectionName, {})
-        assert.isEqual(count, 1)
+        await this.assertCreatingRecordAndUpdatingDoesNotCreateNewEntityRecord()
+    }
+
+    @test()
+    protected static async updatingARecordDoesNotCreateNewEntityRecordWithDifferentEntityFieldName() {
+        this.setEntityIdFieldName('entityId2')
+        await this.assertCreatingRecordAndUpdatingDoesNotCreateNewEntityRecord()
     }
 
     @test()
@@ -168,23 +172,13 @@ export default class HistoryPluginTest extends AbstractPluginTest {
 
     @test()
     protected static async updatingRecordCreatesNewWithMatchingEntityIdAndNewPeriodId() {
-        const updates = await this.createOneAndUpdateWithRandomValues()
-        const [updated, first] = await this.findAllFull()
+        await this.assertUpdatingRecordMaintainsEntityId()
+    }
 
-        assert.isTruthy(updated.periodId)
-
-        assert.isEqual(
-            updated.entityId,
-            first.entityId,
-            "Entity id's should match"
-        )
-
-        assert.isNotEqual(
-            updated.periodId,
-            first.periodId,
-            'periodId should not match'
-        )
-        assert.doesInclude(updated, updates, 'updated should include updates')
+    @test()
+    protected static async updatingRecordWithDifferentEntityFieldMaintainsEntityId() {
+        this.setEntityIdFieldName('entityId2')
+        await this.assertUpdatingRecordMaintainsEntityId()
     }
 
     @test()
@@ -442,5 +436,33 @@ export default class HistoryPluginTest extends AbstractPluginTest {
         this.reloadPlugin()
         //@ts-ignore
         this.spy.setPrimaryFieldNames([this.periodIdFieldName])
+    }
+
+    private static async assertUpdatingRecordMaintainsEntityId() {
+        const updates = await this.createOneAndUpdateWithRandomValues()
+        const [updated, first] = await this.findAllFull()
+
+        assert.isTruthy(updated.periodId)
+
+        assert.isEqual(
+            //@ts-ignore
+            updated[this.entityIdFieldName],
+            //@ts-ignore
+            first[this.entityIdFieldName],
+            "Entity id's should match"
+        )
+
+        assert.isNotEqual(
+            updated.periodId,
+            first.periodId,
+            'periodId should not match'
+        )
+        assert.doesInclude(updated, updates, 'updated should include updates')
+    }
+
+    private static async assertCreatingRecordAndUpdatingDoesNotCreateNewEntityRecord() {
+        await this.createOneAndUpdateWithRandomValues()
+        const count = await this.db.count(this.entityCollectionName, {})
+        assert.isEqual(count, 1)
     }
 }

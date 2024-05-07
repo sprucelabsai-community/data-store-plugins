@@ -57,20 +57,17 @@ export default class HistoryPlugin implements DataStorePlugin {
         }
     }
 
-    public async willCreateOne(values: Record<string, any>) {
+    public async willCreateOne() {
         const updates: Record<string, any> = {
             createTs: Date.now(),
             endTs: getIndefiniteEndDateMs(),
         }
 
-        let id = values.entityId
-        if (!id) {
-            id = generateId()
-            await this.db.createOne(this.entityCollectionName, {
-                [this.entityIdFieldName]: id,
-            })
-            updates[this.entityIdFieldName] = id
-        }
+        const id = generateId()
+        await this.db.createOne(this.entityCollectionName, {
+            [this.entityIdFieldName]: id,
+        })
+        updates[this.entityIdFieldName] = id
 
         return {
             valuesToMixinBeforeCreate: updates,
@@ -81,12 +78,11 @@ export default class HistoryPlugin implements DataStorePlugin {
         query: Record<string, any>,
         updates: Record<string, any>
     ) {
-        const match = (await this.store.findOne(query)) as any
+        const match = await this.findOne(query)
         if (!match) {
             return
         }
-        const periodId = match[this.periodIdFieldName]
-        delete match[this.periodIdFieldName]
+        const periodId = this.pluckPeriodId(match)
 
         const endTs = Date.now()
 
@@ -102,10 +98,20 @@ export default class HistoryPlugin implements DataStorePlugin {
             query: {
                 [this.periodIdFieldName]: periodId,
             },
-            newValues: {
+            newUpdates: {
                 endTs,
             },
         }
+    }
+
+    private pluckPeriodId(match: any) {
+        const periodId = match[this.periodIdFieldName]
+        delete match[this.periodIdFieldName]
+        return periodId
+    }
+
+    private async findOne(query: Record<string, any>) {
+        return (await this.store.findOne(query)) as any
     }
 
     public async didCreateOne(record: Record<string, any>) {
@@ -130,6 +136,7 @@ interface HistoryPluginOptions {
     periodIdFieldName: string
     entityIdFieldName: string
 }
+
 export function getIndefiniteEndDateMs(): any {
     return new Date('2200-01-01 00:00:00-07').getTime()
 }
