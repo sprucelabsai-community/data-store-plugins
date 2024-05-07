@@ -130,7 +130,8 @@ export default class HistoryPlugin implements DataStorePlugin {
         }
     }
 }
-interface HistoryPluginOptions {
+
+export interface HistoryPluginOptions {
     store: AbstractStore<Schema, Schema, Schema, Schema, any>
     entityCollectionName: string
     periodIdFieldName: string
