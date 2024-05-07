@@ -1,6 +1,6 @@
 {
   "name": "@sprucelabs/data-store-plugins",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "files": [
     "build"
   ],
@@ -41,15 +41,15 @@
     "watch.tsc": "tsc -w"
   },
   "devDependencies": {
-    "@sprucelabs/esm-postbuild": "^6.0.14",
-    "@sprucelabs/jest-json-reporter": "^8.0.18",
+    "@sprucelabs/esm-postbuild": "^6.0.15",
+    "@sprucelabs/jest-json-reporter": "^8.0.19",
     "@sprucelabs/jest-sheets-reporter": "^3.0.26",
-    "@sprucelabs/resolve-path-aliases": "^2.0.15",
+    "@sprucelabs/resolve-path-aliases": "^2.0.16",
     "@sprucelabs/semantic-release": "^5.0.1",
     "@sprucelabs/spruce-store-plugin": "^62.0.24",
     "@sprucelabs/spruce-test-fixtures": "^62.0.24",
-    "@sprucelabs/test": "^9.0.11",
-    "@sprucelabs/test-utils": "^5.0.18",
+    "@sprucelabs/test": "^9.0.12",
+    "@sprucelabs/test-utils": "^5.0.19",
     "@types/node": "^20.12.10",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^8.2.2",
@@ -89,8 +89,8 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^27.0.24",
-    "@sprucelabs/error": "^6.0.16",
-    "@sprucelabs/schema": "^30.0.27"
+    "@sprucelabs/data-stores": "^27.0.25",
+    "@sprucelabs/error": "^6.0.17",
+    "@sprucelabs/schema": "^30.0.28"
   }
 }
