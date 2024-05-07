@@ -1,6 +1,9 @@
 import { SpruceErrors } from "#spruce/errors/errors.types"
 import { ErrorOptions as ISpruceErrorOptions} from "@sprucelabs/error"
 
+export interface MissingPeriodIdFieldNameErrorOptions extends SpruceErrors.DataStorePlugins.MissingPeriodIdFieldName, ISpruceErrorOptions {
+	code: 'MISSING_PERIOD_ID_FIELD_NAME'
+}
 export interface MissingLockFieldErrorOptions extends SpruceErrors.DataStorePlugins.MissingLockField, ISpruceErrorOptions {
 	code: 'MISSING_LOCK_FIELD'
 }
@@ -11,6 +14,6 @@ export interface ExpiredLockErrorOptions extends SpruceErrors.DataStorePlugins.E
 	code: 'EXPIRED_LOCK'
 }
 
-type ErrorOptions =  | MissingLockFieldErrorOptions  | MissingEntityIdFieldNameErrorOptions  | ExpiredLockErrorOptions 
+type ErrorOptions =  | MissingPeriodIdFieldNameErrorOptions  | MissingLockFieldErrorOptions  | MissingEntityIdFieldNameErrorOptions  | ExpiredLockErrorOptions 
 
 export default ErrorOptions

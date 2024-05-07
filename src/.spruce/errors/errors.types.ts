@@ -7,6 +7,35 @@ import * as SpruceSchema from '@sprucelabs/schema'
 
 
 
+
+export declare namespace SpruceErrors.DataStorePlugins {
+
+	
+	export interface MissingPeriodIdFieldName {
+		
+			
+			'periodIdFieldName': string
+	}
+
+	export interface MissingPeriodIdFieldNameSchema extends SpruceSchema.Schema {
+		id: 'missingPeriodIdFieldName',
+		namespace: 'DataStorePlugins',
+		name: 'Missing period id field name',
+		    fields: {
+		            /** . */
+		            'periodIdFieldName': {
+		                type: 'text',
+		                isRequired: true,
+		                options: undefined
+		            },
+		    }
+	}
+
+	export type MissingPeriodIdFieldNameEntity = SchemaEntity<SpruceErrors.DataStorePlugins.MissingPeriodIdFieldNameSchema>
+
+}
+
+
 export declare namespace SpruceErrors.DataStorePlugins {
 
 	

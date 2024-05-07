@@ -6,9 +6,11 @@ import {
 import { assertOptions } from '@sprucelabs/schema'
 import { test, assert, errorAssert } from '@sprucelabs/test-utils'
 import AbstractPluginTest from '../support/AbstractPluginTest'
+import SpyStore from '../support/SpyStore'
 
 export default class AutoIncrementingTest extends AbstractPluginTest {
     private static plugin: AutoIncrementingPlugin
+    protected static spy: SpyStore
 
     public static async beforeEach() {
         await super.beforeEach()

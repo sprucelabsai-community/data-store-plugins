@@ -18,6 +18,10 @@ export default class SpruceError extends BaseSpruceError<ErrorOptions> {
                 message = `Your store is missing the entity id field named '${options.entityIdFieldName}'. You need to add it to the full schema of our store for best results`
                 break
 
+            case 'MISSING_PERIOD_ID_FIELD_NAME':
+                message = `Your store is missing the period id field named '${options.periodIdFieldName}'. You need to add it to the full schema of our store for best results`
+                break
+
             default:
                 message = super.friendlyMessage()
         }

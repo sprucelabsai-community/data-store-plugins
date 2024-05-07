@@ -1,10 +1,12 @@
 import { DataStorePlugin, Database } from '@sprucelabs/data-stores'
+import { Schema } from '@sprucelabs/schema'
 import { AbstractSpruceFixtureTest } from '@sprucelabs/spruce-test-fixtures'
 import { generateId } from '@sprucelabs/test-utils'
-import SpyStore from './SpyStore'
+import { PluginStore } from '../tests.types'
+import SpyStore, { SpyRecord } from './SpyStore'
 
 export default abstract class AbstractPluginTest extends AbstractSpruceFixtureTest {
-    protected static spy: SpyStore
+    protected static spy: PluginStore<Schema>
     protected static db: Database
 
     protected static async beforeEach() {
@@ -18,7 +20,9 @@ export default abstract class AbstractPluginTest extends AbstractSpruceFixtureTe
     }
 
     protected static async createOne() {
-        return await this.spy.createOne(this.generateSpyRandomValues())
+        return (await this.spy.createOne(
+            this.generateSpyRandomValues()
+        )) as SpyRecord
     }
 
     protected static addPlugin(plugin: DataStorePlugin) {

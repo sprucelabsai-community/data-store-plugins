@@ -3,12 +3,14 @@ import OptimisticLockingPlugin, {
     OptimisticLockingPluginOptions,
 } from '../../../optimisticLocking/OptimisticLockingPlugin'
 import AbstractPluginTest from '../../support/AbstractPluginTest'
+import SpyStore from '../../support/SpyStore'
 
 export default class OptimisticLockingPluginTest extends AbstractPluginTest {
     private static lockCollectionName: string
     private static plugin: OptimisticLockingPlugin
     private static primaryFieldName: string
     private static lockFieldName: string
+    protected static spy: SpyStore
 
     protected static async beforeEach() {
         await super.beforeEach()

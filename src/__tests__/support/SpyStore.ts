@@ -6,8 +6,12 @@ import {
     UniversalStoreOptions,
 } from '@sprucelabs/data-stores'
 import { buildSchema, SchemaValues } from '@sprucelabs/schema'
+import { PluginStore } from '../tests.types'
 
-export default class SpyStore extends AbstractStore<SpyRecordSchema> {
+export default class SpyStore
+    extends AbstractStore<SpyRecordSchema>
+    implements PluginStore<SpyRecordSchema>
+{
     public db!: Database
     public storeFactory!: StoreFactory
     public name = 'test'
@@ -70,7 +74,7 @@ declare module '@sprucelabs/data-stores/build/types/stores.types' {
 }
 
 const spySchema = buildSchema({
-    id: 'test',
+    id: 'spyRecord',
     fields: {
         id: {
             type: 'id',
