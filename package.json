@@ -44,7 +44,7 @@
     "@sprucelabs/esm-postbuild": "^6.0.20",
     "@sprucelabs/jest-json-reporter": "^8.0.24",
     "@sprucelabs/jest-sheets-reporter": "^3.0.26",
-    "@sprucelabs/resolve-path-aliases": "^2.0.20",
+    "@sprucelabs/resolve-path-aliases": "^2.0.21",
     "@sprucelabs/semantic-release": "^5.0.1",
     "@sprucelabs/spruce-store-plugin": "^62.0.37",
     "@sprucelabs/spruce-test-fixtures": "^62.0.37",
@@ -89,7 +89,7 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^28.0.6",
+    "@sprucelabs/data-stores": "^28.0.7",
     "@sprucelabs/error": "^6.0.23",
     "@sprucelabs/schema": "^30.0.36"
   }
