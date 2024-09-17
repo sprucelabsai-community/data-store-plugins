@@ -41,15 +41,15 @@
     "watch.tsc": "tsc -w"
   },
   "devDependencies": {
-    "@sprucelabs/esm-postbuild": "^6.0.331",
-    "@sprucelabs/jest-json-reporter": "^8.0.348",
-    "@sprucelabs/jest-sheets-reporter": "^3.0.139",
-    "@sprucelabs/resolve-path-aliases": "^2.0.326",
+    "@sprucelabs/esm-postbuild": "^6.0.332",
+    "@sprucelabs/jest-json-reporter": "^8.0.349",
+    "@sprucelabs/jest-sheets-reporter": "^3.0.140",
+    "@sprucelabs/resolve-path-aliases": "^2.0.327",
     "@sprucelabs/semantic-release": "^5.0.2",
     "@sprucelabs/spruce-store-plugin": "^62.2.269",
     "@sprucelabs/spruce-test-fixtures": "^62.2.269",
     "@sprucelabs/test": "^9.0.45",
-    "@sprucelabs/test-utils": "^5.1.293",
+    "@sprucelabs/test-utils": "^5.1.294",
     "@types/node": "^22.5.5",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.0.1",
@@ -89,8 +89,8 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^28.3.2",
-    "@sprucelabs/error": "^6.0.347",
-    "@sprucelabs/schema": "^30.0.395"
+    "@sprucelabs/data-stores": "^28.3.3",
+    "@sprucelabs/error": "^6.0.348",
+    "@sprucelabs/schema": "^30.0.396"
   }
 }
