@@ -46,8 +46,8 @@
     "@sprucelabs/jest-sheets-reporter": "^3.0.198",
     "@sprucelabs/resolve-path-aliases": "^2.0.524",
     "@sprucelabs/semantic-release": "^5.0.2",
-    "@sprucelabs/spruce-store-plugin": "^64.0.0",
-    "@sprucelabs/spruce-test-fixtures": "^64.0.0",
+    "@sprucelabs/spruce-store-plugin": "^64.0.1",
+    "@sprucelabs/spruce-test-fixtures": "^64.0.1",
     "@sprucelabs/test": "^9.0.65",
     "@sprucelabs/test-utils": "^5.1.536",
     "@types/node": "^22.10.5",
@@ -60,7 +60,7 @@
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "description": "Some helpful plugins for the data store layer in Sprucebot",
   "skill": {
