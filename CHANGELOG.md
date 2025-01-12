@@ -1,3 +1,5 @@
+## [1.2.731](https://github.com/sprucelabsai-community/data-store-plugins/compare/v1.2.730...v1.2.731) (2025-01-12)
+
 ## [1.2.730](https://github.com/sprucelabsai-community/data-store-plugins/compare/v1.2.729...v1.2.730) (2025-01-09)
 
 ## [1.2.729](https://github.com/sprucelabsai-community/data-store-plugins/compare/v1.2.728...v1.2.729) (2025-01-09)
