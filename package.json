@@ -60,7 +60,7 @@
     "prettier": "^3.5.2",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "description": "Some helpful plugins for the data store layer in Sprucebot",
   "skill": {
@@ -89,7 +89,7 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^28.5.69",
+    "@sprucelabs/data-stores": "^28.5.70",
     "@sprucelabs/error": "^6.0.581",
     "@sprucelabs/schema": "^31.0.55"
   }
