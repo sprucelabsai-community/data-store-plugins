@@ -47,10 +47,10 @@
     "@sprucelabs/jest-sheets-reporter": "^4.0.7",
     "@sprucelabs/resolve-path-aliases": "^3.0.7",
     "@sprucelabs/semantic-release": "^5.0.2",
-    "@sprucelabs/spruce-store-plugin": "^68.0.19",
-    "@sprucelabs/spruce-test-fixtures": "^68.0.19",
+    "@sprucelabs/spruce-store-plugin": "^68.0.20",
+    "@sprucelabs/spruce-test-fixtures": "^68.0.20",
     "@sprucelabs/test": "^10.0.5",
-    "@sprucelabs/test-utils": "^6.0.17",
+    "@sprucelabs/test-utils": "^6.0.18",
     "@types/node": "^24.0.3",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.1.2",
@@ -90,8 +90,8 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^29.0.19",
+    "@sprucelabs/data-stores": "^29.0.20",
     "@sprucelabs/error": "^7.0.12",
-    "@sprucelabs/schema": "^32.0.18"
+    "@sprucelabs/schema": "^32.0.19"
   }
 }
