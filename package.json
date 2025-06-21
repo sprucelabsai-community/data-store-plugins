@@ -38,18 +38,18 @@
     "update.dependencies": "yarn run clean.dependencies && yarn",
     "watch.build.dev": "tsc-watch --sourceMap --onCompilationComplete 'yarn run post.watch.build'",
     "watch.rebuild": "yarn run clean.all && yarn install && yarn run watch.build.dev",
-    "watch.tsc": "tsc -w"
+    "watch.tsc": "tsc -w",
+    "build": "yarn run build.tsc --sourceMap ; yarn run resolve-paths"
   },
   "devDependencies": {
-    "@sprucelabs/esm-postbuild": "^7.0.6",
-    "@sprucelabs/jest-json-reporter": "^9.0.11",
+    "@sprucelabs/esm-postbuild": "^7.0.7",
+    "@sprucelabs/jest-json-reporter": "^9.0.12",
     "@sprucelabs/jest-sheets-reporter": "^4.0.6",
-    "@sprucelabs/resolve-path-aliases": "^3.0.6",
     "@sprucelabs/semantic-release": "^5.0.2",
     "@sprucelabs/spruce-store-plugin": "^68.0.17",
     "@sprucelabs/spruce-test-fixtures": "^68.0.17",
-    "@sprucelabs/test": "^10.0.4",
-    "@sprucelabs/test-utils": "^6.0.15",
+    "@sprucelabs/test": "^10.0.5",
+    "@sprucelabs/test-utils": "^6.0.16",
     "@types/node": "^24.0.3",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.1.2",
@@ -89,8 +89,9 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^29.0.17",
-    "@sprucelabs/error": "^7.0.10",
-    "@sprucelabs/schema": "^32.0.16"
+    "@sprucelabs/data-stores": "^29.0.18",
+    "@sprucelabs/error": "^7.0.11",
+    "@sprucelabs/resolve-path-aliases": "^3.0.7",
+    "@sprucelabs/schema": "^32.0.17"
   }
 }
