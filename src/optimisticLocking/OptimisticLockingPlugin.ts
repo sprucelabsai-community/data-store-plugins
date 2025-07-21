@@ -66,7 +66,7 @@ export default class OptimisticLockingPlugin implements DataStorePlugin {
         }
     }
 
-    public async willUpdateOne(query: Record<string, any>) {
+    public async willUpdate(query: Record<string, any>) {
         this.assertLockFieldInQuery(query)
         const q = await this.assertLockAndRemoveFromQuery(query)
         return { query: q }
