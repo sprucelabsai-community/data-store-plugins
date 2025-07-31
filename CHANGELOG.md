@@ -1,3 +1,10 @@
+# [8.0.0](https://github.com/sprucelabsai-community/data-store-plugins/compare/v7.0.9...v8.0.0) (2025-07-31)
+
+
+### Breaking Changes
+
+* upgrade ([e9b0a58](https://github.com/sprucelabsai-community/data-store-plugins/commit/e9b0a58))
+
 ## [7.0.9](https://github.com/sprucelabsai-community/data-store-plugins/compare/v7.0.8...v7.0.9) (2025-07-30)
 
 ## [7.0.8](https://github.com/sprucelabsai-community/data-store-plugins/compare/v7.0.7...v7.0.8) (2025-07-29)
