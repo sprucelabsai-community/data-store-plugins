@@ -41,15 +41,15 @@
     "watch.tsc": "tsc -w"
   },
   "devDependencies": {
-    "@sprucelabs/esm-postbuild": "^7.0.18",
-    "@sprucelabs/jest-json-reporter": "^9.0.29",
-    "@sprucelabs/jest-sheets-reporter": "^4.0.19",
-    "@sprucelabs/resolve-path-aliases": "^3.0.15",
+    "@sprucelabs/esm-postbuild": "^7.0.19",
+    "@sprucelabs/jest-json-reporter": "^9.0.31",
+    "@sprucelabs/jest-sheets-reporter": "^4.0.21",
+    "@sprucelabs/resolve-path-aliases": "^3.0.16",
     "@sprucelabs/semantic-release": "^5.0.2",
-    "@sprucelabs/spruce-store-plugin": "^72.0.5",
-    "@sprucelabs/spruce-test-fixtures": "^72.0.5",
-    "@sprucelabs/test": "^10.0.12",
-    "@sprucelabs/test-utils": "^6.0.42",
+    "@sprucelabs/spruce-store-plugin": "^72.0.6",
+    "@sprucelabs/spruce-test-fixtures": "^72.0.6",
+    "@sprucelabs/test": "^10.0.13",
+    "@sprucelabs/test-utils": "^6.0.44",
     "@types/node": "^24.1.0",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.0",
@@ -60,7 +60,7 @@
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "tsc-watch": "^7.1.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "description": "Some helpful plugins for the data store layer in Sprucebot",
   "skill": {
@@ -89,8 +89,8 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^30.0.8",
-    "@sprucelabs/error": "^7.0.27",
-    "@sprucelabs/schema": "^32.0.46"
+    "@sprucelabs/data-stores": "^30.0.10",
+    "@sprucelabs/error": "^7.0.29",
+    "@sprucelabs/schema": "^32.1.1"
   }
 }
