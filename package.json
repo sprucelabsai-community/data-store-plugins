@@ -89,7 +89,7 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^30.0.68",
+    "@sprucelabs/data-stores": "^30.0.69",
     "@sprucelabs/error": "^7.1.19",
     "@sprucelabs/schema": "^32.1.48"
   }
