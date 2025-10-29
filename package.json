@@ -49,7 +49,7 @@
     "@sprucelabs/spruce-store-plugin": "^74.2.26",
     "@sprucelabs/spruce-test-fixtures": "^74.2.26",
     "@sprucelabs/test": "^10.0.25",
-    "@sprucelabs/test-utils": "^6.0.118",
+    "@sprucelabs/test-utils": "^6.0.119",
     "@types/node": "^24.9.2",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.1",
@@ -89,8 +89,8 @@
     }
   },
   "dependencies": {
-    "@sprucelabs/data-stores": "^30.0.114",
-    "@sprucelabs/error": "^7.1.38",
-    "@sprucelabs/schema": "^32.3.14"
+    "@sprucelabs/data-stores": "^30.0.115",
+    "@sprucelabs/error": "^7.1.39",
+    "@sprucelabs/schema": "^32.3.15"
   }
 }
