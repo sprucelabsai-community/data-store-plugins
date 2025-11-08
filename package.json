@@ -48,12 +48,12 @@
     "@sprucelabs/semantic-release": "^5.0.2",
     "@sprucelabs/spruce-store-plugin": "^74.2.30",
     "@sprucelabs/spruce-test-fixtures": "^74.2.30",
-    "@sprucelabs/test": "^10.0.25",
+    "@sprucelabs/test": "^10.0.26",
     "@sprucelabs/test-utils": "^6.0.120",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.1",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "eslint-config-spruce": "^11.2.26",
     "jest": "^30.2.0",
     "jest-circus": "^30.2.0",
@@ -91,6 +91,6 @@
   "dependencies": {
     "@sprucelabs/data-stores": "^30.0.118",
     "@sprucelabs/error": "^7.1.39",
-    "@sprucelabs/schema": "^32.3.17"
+    "@sprucelabs/schema": "^32.3.18"
   }
 }
