@@ -1,3 +1,8 @@
+## <small>10.0.7 (2025-11-12)</small>
+
+* chore(auto-upgrade): Upgrade Tests Passed [auto-merge] ([020246c](https://github.com/sprucelabsai-community/data-store-plugins/commit/020246c))
+* chore(auto-upgrade): upgraded packages [upgrade-all] ([3d80710](https://github.com/sprucelabsai-community/data-store-plugins/commit/3d80710))
+
 ## <small>10.0.6 (2025-11-12)</small>
 
 * chore(auto-upgrade): Upgrade Tests Passed [auto-merge] ([563ca17](https://github.com/sprucelabsai-community/data-store-plugins/commit/563ca17))
