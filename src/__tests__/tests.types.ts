@@ -8,11 +8,11 @@ export interface PluginStore<
     DatabaseSchema extends Schema = FullSchema,
     PrimaryFieldName extends SchemaFieldNames<DatabaseSchema> | 'id' = any,
 > extends AbstractStore<
-        FullSchema,
-        CreateSchema,
-        UpdateSchema,
-        DatabaseSchema,
-        PrimaryFieldName
-    > {
+    FullSchema,
+    CreateSchema,
+    UpdateSchema,
+    DatabaseSchema,
+    PrimaryFieldName
+> {
     addPlugin(plugin: DataStorePlugin): void
 }
