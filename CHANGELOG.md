@@ -1,3 +1,7 @@
+## 10.1.0 (2026-01-07)
+
+* feat: add exports field for proper ESM support in Node.js ([51c836c](https://github.com/sprucelabsai-community/data-store-plugins/commit/51c836c))
+
 ## <small>10.0.38 (2026-01-07)</small>
 
 * chore(auto-upgrade): Upgrade Tests Passed [auto-merge] ([e53919e](https://github.com/sprucelabsai-community/data-store-plugins/commit/e53919e))
