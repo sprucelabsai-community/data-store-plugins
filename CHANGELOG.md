@@ -1,3 +1,7 @@
+## 11.0.0 (2026-01-08)
+
+* major: upgrade dependencies ([fae5dda](https://github.com/sprucelabsai-community/data-store-plugins/commit/fae5dda))
+
 ## <small>10.1.1 (2026-01-07)</small>
 
 * chore(auto-upgrade): Upgrade Tests Passed [auto-merge] ([567bd5e](https://github.com/sprucelabsai-community/data-store-plugins/commit/567bd5e))
