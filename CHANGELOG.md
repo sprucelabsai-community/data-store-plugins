@@ -1,3 +1,7 @@
+## <small>11.0.22 (2026-04-09)</small>
+
+* chore: add rootDir and types to tsconfig for TypeScript 6 compatibility ([58107bf](https://github.com/sprucelabsai-community/data-store-plugins/commit/58107bf))
+
 ## <small>11.0.21 (2026-03-13)</small>
 
 * chore(auto-upgrade): Upgrade Tests Passed [auto-merge] ([92dbccb](https://github.com/sprucelabsai-community/data-store-plugins/commit/92dbccb))
